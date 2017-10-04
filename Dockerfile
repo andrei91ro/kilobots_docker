@@ -16,19 +16,19 @@ RUN apt-get update && apt-get install -y \
     check \
     libftdi-dev \
     libqt4-dev \
-    qt4-qmake
+    qt4-qmake \
+    && rm -rf /var/lib/apt/lists/*
 
 # for X-server access
-ENV DISPLAY=:0
-ENV QT_X11_NO_MITSHM=1
-#VOLUME /tmp/.X11-unix:/tmp/.X11-unix:rw
+ENV DISPLAY=:0 \
+    QT_X11_NO_MITSHM=1 \
+    KILOHEADERS=/root/kilolib
 VOLUME /tmp/.X11-unix
 
 
+# build kilolib
 WORKDIR /root
 RUN git clone https://github.com/acornejo/kilolib
-
-# build kilolib
 WORKDIR /root/kilolib
 RUN make
 
@@ -46,6 +46,4 @@ RUN git clone https://github.com/mickael9/kilobots-toolchain
 WORKDIR /root/kilobots-toolchain
 RUN make install
 
-# is required for compiling Kilombo code into .hex files for Kilobots
-ENV KILOHEADERS=/root/kilolib
 WORKDIR /root/work
