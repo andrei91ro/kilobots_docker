@@ -46,4 +46,10 @@ RUN git clone https://github.com/mickael9/kilobots-toolchain
 WORKDIR /root/kilobots-toolchain
 RUN make install
 
+COPY startup /root/startup
+
+RUN chmod a+w /root/* -Rf
+
+RUN echo "umask 000" >> /root/.bashrc
+
 WORKDIR /root/work
