@@ -7,6 +7,7 @@ docker run -it \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="/home/$(whoami)/work:/root/work:rw" \
     --device=/dev/dri:/dev/dri \
+    --device=/dev/ttyUSB0:/dev/ttyUSB0 \
     --hostname kilobots \
     --name kilobots \
     --rm \
